@@ -6,6 +6,16 @@ const app = express();
 const api = express();
 const uploads = express();
 
+/* setting up for HTTPS down the line
+const https = require('https');
+const httpsOptions = {
+    key: fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem')
+}
+*/
+
+const diamond_store = require('./fuser_diamondstore.js');
+
 var host_url = "http://192.168.0.33:8080";
 
 var owned_dlc_list = [];
@@ -243,4 +253,5 @@ uploads.put('/:filename', (req, res) => {
 // assign the API to the root app and listen on port 8080
 app.use("/api", api);
 app.use("/uploads", uploads);
+app.use('/api/store/elder_credit_store', diamond_store);
 app.listen(8080);
